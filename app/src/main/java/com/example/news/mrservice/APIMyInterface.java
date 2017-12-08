@@ -10,6 +10,6 @@ import retrofit2.http.POST;
 
 public interface APIMyInterface {
     @FormUrlEncoded
-    @POST("mechanics-nearby.php")
-    Call<String> MechanicsNearBy(@Field("lat") String lat, @Field("lng") String lng);
+    @POST("testing-service.php")
+    Call<String> testingPhp(@Field("test") String test);
 }

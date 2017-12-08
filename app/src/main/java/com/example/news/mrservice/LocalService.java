@@ -60,7 +60,8 @@ public class LocalService extends Service {
     };
     private void AllMechanics(){
         APIMyInterface apiInterface= APIClient.getApiClient().create(APIMyInterface.class);
-        Call<String> call=apiInterface.MechanicsNearBy("73.23","30.32");
+        //calling php file from here. php will return success
+        Call<String> call=apiInterface.testingPhp("test");
         call.enqueue(new Callback<String>() {
             @Override
             public void onResponse(Call<String> call, Response<String> response) {
