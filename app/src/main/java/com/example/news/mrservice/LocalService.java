@@ -1,19 +1,12 @@
 package com.example.news.mrservice;
 
-import android.app.NotificationManager;
-import android.app.PendingIntent;
 import android.app.Service;
-import android.app.TaskStackBuilder;
 import android.content.Intent;
 import android.os.Binder;
 import android.os.Handler;
 import android.os.IBinder;
-import android.support.v7.app.NotificationCompat;
 import android.util.Log;
-import android.widget.Toast;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Random;
 
 import retrofit2.Call;
@@ -22,6 +15,8 @@ import retrofit2.Response;
 
 
 public class LocalService extends Service {
+
+    static String data;
     // Binder given to clients
     private final IBinder mBinder = new LocalBinder();
     // Random number generator
@@ -71,6 +66,7 @@ public class LocalService extends Service {
             @Override
             public void onResponse(Call<String> call, Response<String> response) {
                 String c=response.body();
+                data=c;
                 //Toast.makeText(mContext, "Server response: "+c, Toast.LENGTH_LONG).show();
                 Log.d("Serverresponse",c);
                 if(c.equalsIgnoreCase("success")){

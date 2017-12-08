@@ -9,17 +9,19 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.TextView;
 import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity {
     LocalService mService;
     boolean mBound = false;
-
+    TextView t1;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         Button b=(Button)findViewById(R.id.button);
+        t1=(TextView)findViewById(R.id.textV);
         b.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -28,6 +30,7 @@ public class MainActivity extends AppCompatActivity {
                     // However, if this call were something that might hang, then this request should
                     // occur in a separate thread to avoid slowing down the activity performance.
                     mService.TestService();
+                    t1.setText(LocalService.data);
                     //Toast.makeText(MainActivity.this, "number: " + num, Toast.LENGTH_SHORT).show();
                 }else{
                     Toast.makeText(MainActivity.this, "l ho gaya", Toast.LENGTH_SHORT).show();
@@ -73,7 +76,6 @@ public class MainActivity extends AppCompatActivity {
             mService = binder.getService();
             mBound = true;
         }
-
         @Override
         public void onServiceDisconnected(ComponentName arg0) {
             mBound = false;
