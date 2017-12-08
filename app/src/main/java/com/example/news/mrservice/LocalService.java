@@ -1,12 +1,24 @@
 package com.example.news.mrservice;
 
+import android.app.AlarmManager;
+import android.app.NotificationManager;
+import android.app.PendingIntent;
 import android.app.Service;
+import android.app.TaskStackBuilder;
+import android.appwidget.AppWidgetManager;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Binder;
 import android.os.Handler;
 import android.os.IBinder;
+import android.os.SystemClock;
+import android.support.v4.content.LocalBroadcastManager;
+import android.support.v7.app.NotificationCompat;
 import android.util.Log;
+import android.widget.Toast;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Random;
 
 import retrofit2.Call;
@@ -15,8 +27,6 @@ import retrofit2.Response;
 
 
 public class LocalService extends Service {
-
-    static String data;
     // Binder given to clients
     private final IBinder mBinder = new LocalBinder();
     // Random number generator
@@ -66,12 +76,13 @@ public class LocalService extends Service {
             @Override
             public void onResponse(Call<String> call, Response<String> response) {
                 String c=response.body();
-                data=c;
                 //Toast.makeText(mContext, "Server response: "+c, Toast.LENGTH_LONG).show();
                 Log.d("Serverresponse",c);
                 if(c.equalsIgnoreCase("success")){
-
-                    Log.d("Serverresponsesuccess",c);
+                    Intent intent = new Intent("intentKey");
+                    // You can also include some extra data.
+                    intent.putExtra("key", c);
+                    LocalBroadcastManager.getInstance(LocalService.this).sendBroadcast(intent);
                     /*NotificationCompat.Builder mBuilder =
                             (NotificationCompat.Builder) new NotificationCompat.Builder(this)
                                     //.setSmallIcon(R.drawable.navigate_icon)
