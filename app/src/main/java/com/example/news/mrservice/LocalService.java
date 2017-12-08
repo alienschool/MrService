@@ -1,10 +1,15 @@
 package com.example.news.mrservice;
 
+import android.app.NotificationManager;
+import android.app.PendingIntent;
 import android.app.Service;
+import android.app.TaskStackBuilder;
 import android.content.Intent;
 import android.os.Binder;
 import android.os.Handler;
 import android.os.IBinder;
+import android.support.v7.app.NotificationCompat;
+import android.util.Log;
 import android.widget.Toast;
 
 import java.util.ArrayList;
@@ -41,7 +46,7 @@ public class LocalService extends Service {
     }
 
     /** method for clients */
-    public int getRandomNumber() {
+    /*public int getRandomNumber() {
         handler=new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
@@ -57,8 +62,8 @@ public class LocalService extends Service {
             mGenerator.nextInt(100);
 
         }
-    };
-    private void AllMechanics(){
+    };*/
+    public void TestService(){
         APIMyInterface apiInterface= APIClient.getApiClient().create(APIMyInterface.class);
         //calling php file from here. php will return success
         Call<String> call=apiInterface.testingPhp("test");
@@ -67,7 +72,38 @@ public class LocalService extends Service {
             public void onResponse(Call<String> call, Response<String> response) {
                 String c=response.body();
                 //Toast.makeText(mContext, "Server response: "+c, Toast.LENGTH_LONG).show();
+                Log.d("Serverresponse",c);
+                if(c.equalsIgnoreCase("success")){
 
+                    Log.d("Serverresponsesuccess",c);
+                    /*NotificationCompat.Builder mBuilder =
+                            (NotificationCompat.Builder) new NotificationCompat.Builder(this)
+                                    //.setSmallIcon(R.drawable.navigate_icon)
+                                    .setContentTitle("")
+                                    .setContentText("notificationmsg");
+                    // Creates an explicit intent for an Activity in your app
+                    Intent resultIntent = new Intent(this, MapActivity.class);
+
+                    // The stack builder object will contain an artificial back stack for the
+                    // started Activity.
+                    // This ensures that navigating backward from the Activity leads out of
+                    // your application to the Home screen.
+                    TaskStackBuilder stackBuilder = TaskStackBuilder.create(this);
+                    // Adds the back stack for the Intent (but not the Intent itself)
+                    stackBuilder.addParentStack(MapActivity.class);
+                    // Adds the Intent that starts the Activity to the top of the stack
+                    stackBuilder.addNextIntent(resultIntent);
+                    PendingIntent resultPendingIntent =
+                            stackBuilder.getPendingIntent(
+                                    0,
+                                    PendingIntent.FLAG_UPDATE_CURRENT
+                            );
+                    mBuilder.setContentIntent(resultPendingIntent);
+                    NotificationManager mNotificationManager =
+                            (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
+                    // mId allows you to update the notification later on.
+                    mNotificationManager.notify(101, mBuilder.build());*/
+                }
             }
             @Override
             public void onFailure(Call<String> call, Throwable t) {
@@ -75,5 +111,6 @@ public class LocalService extends Service {
             }
         });
     }
+
 
 }

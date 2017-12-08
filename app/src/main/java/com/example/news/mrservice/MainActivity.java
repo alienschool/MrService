@@ -27,8 +27,8 @@ public class MainActivity extends AppCompatActivity {
                     // Call a method from the LocalService.
                     // However, if this call were something that might hang, then this request should
                     // occur in a separate thread to avoid slowing down the activity performance.
-                    int num = mService.getRandomNumber();
-                    Toast.makeText(MainActivity.this, "number: " + num, Toast.LENGTH_SHORT).show();
+                    mService.TestService();
+                    //Toast.makeText(MainActivity.this, "number: " + num, Toast.LENGTH_SHORT).show();
                 }else{
                     Toast.makeText(MainActivity.this, "l ho gaya", Toast.LENGTH_SHORT).show();
                 }
@@ -57,8 +57,8 @@ public class MainActivity extends AppCompatActivity {
             // Call a method from the LocalService.
             // However, if this call were something that might hang, then this request should
             // occur in a separate thread to avoid slowing down the activity performance.
-            int num = mService.getRandomNumber();
-            Toast.makeText(this, "number: " + num, Toast.LENGTH_SHORT).show();
+            mService.TestService();
+            //Toast.makeText(this, "check log: " + num, Toast.LENGTH_SHORT).show();
         }
     }
 
